@@ -763,6 +763,7 @@ func (al *AgentLoop) runAgentLoop(
 
 	// 2. Save user message to session
 	agent.Sessions.AddMessage(opts.SessionKey, "user", opts.UserMessage)
+	agent.Chats.AddMessage(opts.SessionKey, "user", opts.UserMessage)
 
 	// 3. Run LLM iteration loop
 	finalContent, iteration, err := al.runLLMIteration(ctx, agent, messages, opts)
@@ -781,6 +782,8 @@ func (al *AgentLoop) runAgentLoop(
 	// 5. Save final assistant message to session
 	agent.Sessions.AddMessage(opts.SessionKey, "assistant", finalContent)
 	agent.Sessions.Save(opts.SessionKey)
+	agent.Chats.AddMessage(opts.SessionKey, "assistant", finalContent)
+	agent.Chats.Save(opts.SessionKey)
 
 	// 6. Optional: summarization
 	if opts.EnableSummary {
@@ -1118,6 +1121,7 @@ func (al *AgentLoop) runLLMIteration(
 
 		// Save assistant message with tool calls to session
 		agent.Sessions.AddFullMessage(opts.SessionKey, assistantMsg)
+		agent.Chats.AddFullMessage(opts.SessionKey, assistantMsg)
 
 		// Execute tool calls in parallel
 		type indexedAgentResult struct {
@@ -1220,6 +1224,7 @@ func (al *AgentLoop) runLLMIteration(
 
 			// Save tool result message to session
 			agent.Sessions.AddFullMessage(opts.SessionKey, toolResultMsg)
+			agent.Chats.AddFullMessage(opts.SessionKey, toolResultMsg)
 		}
 	}
 

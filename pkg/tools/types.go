@@ -7,6 +7,7 @@ type Message struct {
 	Content    string     `json:"content"`
 	ToolCalls  []ToolCall `json:"tool_calls,omitempty"`
 	ToolCallID string     `json:"tool_call_id,omitempty"`
+	Time       string     `json:"time,omitempty"`
 }
 
 type ToolCall struct {

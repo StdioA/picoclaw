@@ -70,6 +70,7 @@ type Message struct {
 	SystemParts      []ContentBlock `json:"system_parts,omitempty"` // structured system blocks for cache-aware adapters
 	ToolCalls        []ToolCall     `json:"tool_calls,omitempty"`
 	ToolCallID       string         `json:"tool_call_id,omitempty"`
+	Time             string         `json:"time,omitempty"`
 }
 
 type ToolDefinition struct {

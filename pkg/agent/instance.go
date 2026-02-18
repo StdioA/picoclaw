@@ -32,6 +32,7 @@ type AgentInstance struct {
 	SummarizeTokenPercent     int
 	Provider                  providers.LLMProvider
 	Sessions                  *session.SessionManager
+	Chats                     *session.SessionManager
 	ContextBuilder            *ContextBuilder
 	Tools                     *tools.ToolRegistry
 	Subagents                 *config.SubagentsConfig
@@ -95,6 +96,8 @@ func NewAgentInstance(
 
 	sessionsDir := filepath.Join(workspace, "sessions")
 	sessionsManager := session.NewSessionManager(sessionsDir)
+	chatsDir := filepath.Join(workspace, "chats")
+	chatsManager := session.NewSessionManager(chatsDir)
 
 	contextBuilder := NewContextBuilder(workspace)
 
@@ -222,6 +225,7 @@ func NewAgentInstance(
 		SummarizeTokenPercent:     summarizeTokenPercent,
 		Provider:                  provider,
 		Sessions:                  sessionsManager,
+		Chats:                     chatsManager,
 		ContextBuilder:            contextBuilder,
 		Tools:                     toolsRegistry,
 		Subagents:                 subagents,

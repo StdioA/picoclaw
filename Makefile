@@ -15,7 +15,7 @@ INTERNAL=github.com/sipeed/picoclaw/cmd/picoclaw/internal
 LDFLAGS=-ldflags "-X $(INTERNAL).version=$(VERSION) -X $(INTERNAL).gitCommit=$(GIT_COMMIT) -X $(INTERNAL).buildTime=$(BUILD_TIME) -X $(INTERNAL).goVersion=$(GO_VERSION) -s -w"
 
 # Go variables
-GO?=CGO_ENABLED=0 go
+GO?=CGO_ENABLED=0 go1.26.0
 GOFLAGS?=-v -tags stdjson
 
 # Golangci-lint

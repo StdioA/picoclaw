@@ -63,6 +63,7 @@ func (sm *SessionManager) AddMessage(sessionKey, role, content string) {
 	sm.AddFullMessage(sessionKey, providers.Message{
 		Role:    role,
 		Content: content,
+		Time:    time.Now().Format(time.RFC3339),
 	})
 }
 
@@ -71,6 +72,9 @@ func (sm *SessionManager) AddMessage(sessionKey, role, content string) {
 func (sm *SessionManager) AddFullMessage(sessionKey string, msg providers.Message) {
 	sm.mu.Lock()
 	defer sm.mu.Unlock()
+	if msg.Time == "" {
+		msg.Time = time.Now().Format(time.RFC3339)
+	}
 
 	session, ok := sm.sessions[sessionKey]
 	if !ok {
